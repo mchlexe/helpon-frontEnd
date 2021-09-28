@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "helpon-frontEnd",
+    "slug": "helpon-frontEnd",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "helpon-frontEnd"
+}
