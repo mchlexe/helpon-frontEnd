@@ -7,11 +7,12 @@ export const Container = styled.View`
     background-color: ${(props) => props.theme.colors.background};
 `;
 
-
 export const SubContainer = styled.View`
     width: 85%;
-    height: 280px;
+    height: 350px;
     justify-content: space-evenly;
+    align-items: center;
+
 `;
 
 export const Logo = styled.Image`
@@ -19,8 +20,3 @@ export const Logo = styled.Image`
     height: 50%;
 `;
 
-export const ContainerBtns = styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-`;

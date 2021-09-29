@@ -20,6 +20,6 @@ export const Botao = styled.TouchableOpacity<buttonProps>`
 
 export const Texto = styled.Text<textProps>`
     color: ${(props) => props.textColor};
-    font-size: 18px;
-    font-family: ${(props) => props.theme.fonts.bold};
+    font-size: 17px;
+    font-family: ${(props) => props.theme.fonts.medium};
 `;

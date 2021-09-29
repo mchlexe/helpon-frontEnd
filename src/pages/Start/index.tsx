@@ -15,7 +15,6 @@ export const Start = () => {
     return (
 
        <Container>
-
            <SubContainer>
                 <Logo source={logo}/>
                 <ContainerBtns>
