@@ -1,5 +1,5 @@
 import React from 'react';
-import { Start } from './src/pages/Start';
+import { Perfil } from './src/pages/Perfil';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading';
@@ -30,7 +30,7 @@ export default function App() {
   return (
 
     <ThemeProvider theme={theme} >
-      <Start />
+      <Perfil />
     </ThemeProvider>
 
   );

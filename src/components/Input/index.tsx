@@ -27,7 +27,7 @@ export const Input = ({ type, icon, placeholder, ...textInputProps }:InputProps)
                 style={style.textInput}
                 {...textInputProps}
                 placeholder={placeholder} 
-                secureTextEntry={(type === 'password') ? true : false}
+                secureTextEntry={(type === 'password') ? true : false}      
             />
         </ContainerInput>
 
