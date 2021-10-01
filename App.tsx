@@ -13,6 +13,7 @@ import {
 
 
 
+
 export default function App() {
 
   const [fontsLoaded] = useFonts({ //useFonts é um hook que carrega as fonts e retorna true caso elas sejam carregadas e falso caso o contrário.
@@ -20,6 +21,7 @@ export default function App() {
     Inter_500Medium,
     Inter_700Bold
   })
+
 
   if ( !fontsLoaded ) { //Se as fontes não forem carregadas
       <AppLoading />

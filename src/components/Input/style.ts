@@ -2,8 +2,6 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
-
-
 export const ContainerInput = styled.View`
     height: 45px;
     border: 2px solid gainsboro;
@@ -19,9 +17,4 @@ export const Icone = styled(Feather)`
     text-align: center;
 `;
 
-export const CampoDeTexto = styled.TextInput`
-    width: 83%;
-    height: 100%;
-    font-size: 17px;
-    font-family: ${(props) => props.theme.fonts.medium};
-`;
+

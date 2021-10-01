@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, StyleSheet } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import {
-    CampoDeTexto,
     ContainerInput,
     Icone
 } from './style';
@@ -23,7 +23,9 @@ export const Input = ({ type, icon, placeholder, ...textInputProps }:InputProps)
                 name={icon} 
                 size={26}
             />
-            <CampoDeTexto 
+            <TextInput
+                style={style.textInput}
+                {...textInputProps}
                 placeholder={placeholder} 
                 secureTextEntry={(type === 'password') ? true : false}
             />
@@ -32,3 +34,13 @@ export const Input = ({ type, icon, placeholder, ...textInputProps }:InputProps)
     );
 
 }
+
+const style = StyleSheet.create({
+    textInput: {
+        width: '80%',
+        height: '100%',
+        fontSize: 17,
+        marginRight: 10,
+        fontFamily: 'Inter_700Bold'
+    }
+})
