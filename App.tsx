@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Login } from './src/pages/Login';
-import { Home } from './src/pages/Home';
+//import { Home } from './src/pages/Home';
 import { EditarPerfil } from './src/pages/EditarPerfil';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
@@ -13,6 +13,9 @@ import {
   Inter_500Medium,
   Inter_700Bold
  } from '@expo-google-fonts/inter';
+import { CadastroOne } from './src/pages/CadastroOne';
+import { CadastroTwo } from './src/pages/CadastroTwo';
+
 
 
 
@@ -32,7 +35,7 @@ export default function App() {
 
     return (  
       <ThemeProvider theme={theme} >
-        <EditarPerfil />
+        <CadastroOne />
       </ThemeProvider>
     );
   }
