@@ -5,7 +5,9 @@ import { Login } from './src/pages/Login';
 import { EditarPerfil } from './src/pages/EditarPerfil';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
-import AppLoading from 'expo-app-loading';
+import AppLoading from 'expo-app-loading'; 
+
+import Routes from './src/routes';
 
 import { 
   useFonts,
@@ -35,7 +37,7 @@ export default function App() {
 
     return (  
       <ThemeProvider theme={theme} >
-        <CadastroOne />
+        <Routes/>
       </ThemeProvider>
     );
   }
