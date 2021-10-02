@@ -15,7 +15,7 @@ import {
     SubContainerInfo,
     UserName,
     Descricao,
-    MenuInferior,
+    // MenuInferior,
     DadosPessoais,
     Titulo,
     Informacao,
@@ -65,9 +65,9 @@ export const Perfil = () => {
 
                 </DadosPessoais>
             </InformacoesPerfil>
-            <MenuInferior>
+            {/* <MenuInferior> Removi para ficar um único componente sendo reutilizado  */}
                 <BarraNavegacao />
-            </MenuInferior>
+            {/* </MenuInferior> */}
 
         </Container>
 

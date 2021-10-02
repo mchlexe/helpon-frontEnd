@@ -30,8 +30,8 @@ export const Login = () => {
                />
                <Button 
                      text="Login"
-                     textColor="darkred"
-                     backgroundColor="#F9CECE"
+                     textColor="white"
+                     backgroundColor="#FF8955"
                />
            </SubContainer>
         </Container>

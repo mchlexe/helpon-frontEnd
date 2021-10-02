@@ -21,7 +21,7 @@ export const Input = ({ type, icon, placeholder, ...textInputProps }:InputProps)
         <ContainerInput>
             <Icone 
                 name={icon} 
-                size={26}
+                size={24}
             />
             <TextInput
                 style={style.textInput}
@@ -41,6 +41,7 @@ const style = StyleSheet.create({
         height: '100%',
         fontSize: 17,
         marginRight: 10,
-        fontFamily: 'Inter_700Bold'
+        fontFamily: 'Inter_700Bold',
+        color: 'darkgrey'
     }
 })

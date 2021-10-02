@@ -40,7 +40,6 @@ export const FotoPerfil = styled.Image`
     width: 80px;
     height: 80px;
     border-radius: 10px;
-    /* border: 5px gainsboro; */
 `;
 
 export const ContainerInfo = styled.View`
@@ -65,9 +64,9 @@ export const Descricao = styled.Text`
     font-size: 13px;
 `;
 
-export const MenuInferior = styled.View`
-    height: 10%;
-`;
+// export const MenuInferior = styled.View`
+//     height: 10%;
+// `;
 
 export const DadosPessoais = styled.View`
     height: 250px;

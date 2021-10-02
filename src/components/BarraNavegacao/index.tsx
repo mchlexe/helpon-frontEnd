@@ -13,15 +13,15 @@ export const BarraNavegacao = () => {
     return (
         <Container>
             <Link>
-                <Icone name="home" size={30} color="darkgray"/>
+                <Icone name="home" />
                 <Page>Início</Page>
             </Link>
             <Link>
-                <Icone name="shopping-bag" size={30} color="darkgray"/>
+                <Icone name="shopping-bag"/>
                 <Page>Cupons</Page>
             </Link>
             <Link>
-                <Icone name="user" size={30} color="darkgray"/>
+                <Icone name="user"/>
                 <Page>Perfil</Page>
             </Link>
         </Container>

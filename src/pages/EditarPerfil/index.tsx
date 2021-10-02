@@ -10,7 +10,6 @@ import {
     PaginaInfo,
     InformacoesPerfil,
     FotoPerfil,
-    MenuInferior,
     ContainerPage,
     Acoes
 } from './style';
@@ -58,23 +57,23 @@ export const EditarPerfil = () => {
                 <Acoes>
                     <Button
                         text="Desativar"
-                        backgroundColor="gray"
+                        backgroundColor="#BBBBBB"
                         textColor="white"
                         icone="trash"
                     />
 
                     <Button
                         text="Confirmar"
-                        backgroundColor="green"
+                        backgroundColor="#68BB6C"
                         textColor="white"
                         icone="check"
                     />
                 </Acoes>
             </InformacoesPerfil>
 
-            <MenuInferior>
+            {/* <MenuInferior> */}
                 <BarraNavegacao />
-            </MenuInferior>
+            {/* </MenuInferior> */}
         </Container>
 
     );

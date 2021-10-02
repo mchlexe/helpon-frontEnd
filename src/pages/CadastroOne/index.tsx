@@ -65,8 +65,8 @@ export const CadastroOne = () => {
                 </CaixaSelect>
 
                 <Button
-                    backgroundColor="#FAE0B2"
-                    textColor="orange"
+                    backgroundColor="#FF8955"
+                    textColor="white"
                     text="Continuar"
                     icone="chevron-right"
                 />

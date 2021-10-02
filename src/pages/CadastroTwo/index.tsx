@@ -49,8 +49,8 @@ export const CadastroTwo = () => {
                 />
                 <Button
                     text="Concluir"
-                    backgroundColor="#FAE0B2"
-                    textColor="orange"
+                    backgroundColor="#FF8955"
+                    textColor="white"
                     icone="chevron-down"
                 />
             </SubContainer>

@@ -43,7 +43,6 @@ export const FotoPerfil = styled.Image`
     width: 80px;
     height: 80px;
     border-radius: 10px;
-    border: 5px gainsboro;
 `;
 
 export const Acoes = styled.View`
@@ -53,8 +52,7 @@ export const Acoes = styled.View`
 `;
 
 
-export const MenuInferior = styled.View`
-    background-color: gainsboro;
-    height: 10%;
-`;
+// export const MenuInferior = styled.View`
+//     height: 10%;
+// `;
 
