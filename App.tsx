@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Login } from './src/pages/Login';
-//import { Home } from './src/pages/Home';
-import { EditarPerfil } from './src/pages/EditarPerfil';
+import { Start } from './src/pages/Start';
+// import { Home } from './src/pages/Home';
+// import { EditarPerfil } from './src/pages/EditarPerfil';
+// import { CadastroOne } from './src/pages/CadastroOne';
+// import { CadastroTwo } from './src/pages/CadastroTwo';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading';
@@ -13,8 +15,6 @@ import {
   Inter_500Medium,
   Inter_700Bold
  } from '@expo-google-fonts/inter';
-import { CadastroOne } from './src/pages/CadastroOne';
-import { CadastroTwo } from './src/pages/CadastroTwo';
 
 
 
@@ -35,7 +35,7 @@ export default function App() {
 
     return (  
       <ThemeProvider theme={theme} >
-        <CadastroOne />
+        <Start />
       </ThemeProvider>
     );
   }
