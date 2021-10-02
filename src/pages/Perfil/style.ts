@@ -40,7 +40,7 @@ export const FotoPerfil = styled.Image`
     width: 80px;
     height: 80px;
     border-radius: 10px;
-    border: 5px gainsboro;
+    /* border: 5px gainsboro; */
 `;
 
 export const ContainerInfo = styled.View`
