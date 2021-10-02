@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Start } from './src/pages/Start';
-// import { Home } from './src/pages/Home';
-// import { EditarPerfil } from './src/pages/EditarPerfil';
-// import { CadastroOne } from './src/pages/CadastroOne';
-// import { CadastroTwo } from './src/pages/CadastroTwo';
+import { Login } from './src/pages/Login';
+//import { Home } from './src/pages/Home';
+import { EditarPerfil } from './src/pages/EditarPerfil';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
-import AppLoading from 'expo-app-loading';
+import AppLoading from 'expo-app-loading'; 
+
+import Routes from './src/routes';
 
 import { 
   useFonts,
@@ -15,6 +15,8 @@ import {
   Inter_500Medium,
   Inter_700Bold
  } from '@expo-google-fonts/inter';
+import { CadastroOne } from './src/pages/CadastroOne';
+import { CadastroTwo } from './src/pages/CadastroTwo';
 
 
 
@@ -35,7 +37,7 @@ export default function App() {
 
     return (  
       <ThemeProvider theme={theme} >
-        <Start />
+        <Routes/>
       </ThemeProvider>
     );
   }
