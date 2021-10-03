@@ -31,7 +31,8 @@
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "0.14.10",
     "react-native-web": "^0.17.5",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
