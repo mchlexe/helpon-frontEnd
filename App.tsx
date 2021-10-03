@@ -16,6 +16,7 @@ import {
  } from '@expo-google-fonts/inter';
 import { CadastroOne } from './src/pages/CadastroOne';
 import { CadastroTwo } from './src/pages/CadastroTwo';
+import { Start } from './src/pages/Start';
 
 
 
@@ -35,9 +36,14 @@ export default function App() {
   } else {
 
     return (  
-      <ThemeProvider theme={theme} >
-        <Login/>
-      </ThemeProvider>
+
+        <ThemeProvider theme={theme} >
+
+          <Routes />
+
+        </ThemeProvider>
+
+      
     );
   }
 

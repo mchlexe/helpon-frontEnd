@@ -8,9 +8,22 @@ import {
 
 import logo from '../../assets/logo/logo.png';
 import { Button } from '../../components/Button';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 export const Start = () => {
+
+    const navigation = useNavigation();
+    
+    function handleRedirectToLogin() {
+       navigation.navigate('Login' as never);
+    }
+
+    function handleRedirectToCadastro(){
+        navigation.navigate('CadastroOne' as never);
+    }
+
 
     return (
 
@@ -22,11 +35,13 @@ export const Start = () => {
                         text="Login"
                         textColor="darkred"
                         backgroundColor="#F9CECE"
+                        onPress={handleRedirectToLogin}
                     />
                     <Button 
                         text="Cadastro"
                         textColor="darkorange"
                         backgroundColor="#FAE0B2"
+                        onPress={handleRedirectToCadastro}
                     />
                 </ContainerBtns>
            </SubContainer>
