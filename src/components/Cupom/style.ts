@@ -24,7 +24,8 @@ export const Botao = styled.TouchableOpacity<buttonProps>`
     flex-direction: row;
 `;
 
-export const Texto = styled.Text<textProps>`
+
+export const TextoCupom = styled.Text<textProps>`
     color: white;
     width: 60%;
     font-size: 18px;

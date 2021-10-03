@@ -13,12 +13,12 @@ interface ButtonProps extends TouchableOpacityProps {
     icone?: string;
 }
 
-export const Cupom = ({ text, textColor, icone, ...btnProps}: ButtonProps) => {
+export const Cupom = ({ text, backgroundColor, textColor, icone, ...btnProps}: ButtonProps) => {
 
 
     return (
 
-        <Botao activeOpacity={0.5} {...btnProps}>
+        <Botao backgroundColor={backgroundColor} activeOpacity={0.5} {...btnProps}>
             <Icone name={icone} size={50} color={textColor} />
         </Botao>
 

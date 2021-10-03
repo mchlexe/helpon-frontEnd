@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Login } from './src/pages/Login';
-//import { Home } from './src/pages/Home';
-import { EditarPerfil } from './src/pages/EditarPerfil';
+import { Home } from './src/pages/Home';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading'; 
@@ -37,7 +36,7 @@ export default function App() {
 
     return (  
       <ThemeProvider theme={theme} >
-        <Routes/>
+        <Login/>
       </ThemeProvider>
     );
   }

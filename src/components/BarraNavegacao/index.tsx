@@ -4,6 +4,7 @@ import React from 'react';
 import {
     Container,
     Link,
+    LinkActive,
     Icone,
     Page
 } from './style';

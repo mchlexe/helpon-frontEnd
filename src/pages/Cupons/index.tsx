@@ -13,71 +13,67 @@ import {
 import { BarraNavegacao } from '../../components/BarraNavegacao';
 import { BarraOrdem } from '../../components/BarraOrdem';
 import { Cupom } from '../../components/Cupom';
-import { Button } from '../../components/Button';
 import { TextoCupom } from '../../components/Cupom/style';
+import { TextoHeader } from '../Cupons/style';
 import { FlatList } from 'react-native';
+import { Button } from '../../components/Button';
 
 const CUPONS = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       texto: "Cupom #1",
+      ativo: "True",
     },
     {
       id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
       texto: "Cupom #2",
+      ativo: "True",
     },
     {
       id: "58694a0f-3da1-471f-bd96-145571e29d72",
       texto: "Cupom #3",
-    },
-    {
-      id: "3ac68afc-c605-48d2-a4f8-fbd91aa97f63",
-      texto: "Cupom #4",
-    },
-    {
-      id: "58694a0-3da1-471f-bd96-14557s1e29d72",
-      texto: "Cupom #5",
-    },
-    {
-      id: "3ac68afc-c605-4d3-a4f8-fbd91saa97f63",
-      texto: "Cupom #6",
-    },
-    {
-      id: "58694a0f-3da1-471fbd96-14557s1e29d72",
-      texto: "Cupom #7",
-    },
+      ativo: "False",
+    }
   ];
 
 
-export const Home = () => {
+export const Cupons = () => {
 
     const [selectedId, setSelectedId] = useState(null);
- 
 
+    
     return (
 
         <Container>
-
+            {/* Header de clientes */}
             <MenuSuperior>
                 <Logo source={logo} />
                 <ContainerPage>
-                    <Input 
-                        icon="search" 
-                        type="text"
-                        placeholder="Pesquisar"
-                    />
+                        <TextoHeader textColor={'white'}>Cupons adquiridos</TextoHeader>
                 </ContainerPage>
             </MenuSuperior>
+
+            {/* Header de inst/loja */}
+            {/* <MenuSuperior>
+                <Logo source={logo} />
+                <ContainerPage>                        
+                    <Button 
+                            text="Novo cupom"
+                            textColor="white"
+                            backgroundColor="#68BB6C"
+                    />
+                </ContainerPage>
+            </MenuSuperior> */}
 
             
             <ContainerLista>
                 <BarraOrdem />
 
                 <FlatList
-                  // Telas Pesquisa e Home são a mesma coisa com o resultado da query filtrados
                     data={CUPONS}
                     renderItem={({item}) => {
                         return(   
+                            // Falta estilo condicional para o cupom que já foi usado
                             <ContainerCupom>
                                 <Cupom 
                                     icone="ticket-alt"
@@ -96,6 +92,7 @@ export const Home = () => {
             
             </ContainerLista>
 
+            {/* Falta estilo condicional para destacar a página atual da navegaçào */}
             <BarraNavegacao />
 
         </Container>

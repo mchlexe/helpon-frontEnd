@@ -17,6 +17,17 @@ export const Link = styled.View`
     padding-right: 13%;
 `;
 
+export const LinkActive = styled.View`
+    justify-content: center;
+    align-items: center;
+    padding-left: 13%;
+    padding-right: 13%;
+    height: 100%;
+    border-bottom-width: 5px;
+    border-bottom-color: #FF8955;
+    
+`;
+
 export const Icone = styled(Feather)`
     color: #FF8955;
     font-size: 24px;
