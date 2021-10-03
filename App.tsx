@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading'; 
 
-import Routes from './src/routes';
+import Routes from './src/routes/routes';
 
 import { 
   useFonts,
@@ -14,9 +14,7 @@ import {
   Inter_500Medium,
   Inter_700Bold
  } from '@expo-google-fonts/inter';
-import { CadastroOne } from './src/pages/CadastroOne';
-import { CadastroTwo } from './src/pages/CadastroTwo';
-import { Start } from './src/pages/Start';
+
 
 
 

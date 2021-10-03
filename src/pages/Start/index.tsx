@@ -17,11 +17,11 @@ export const Start = () => {
     const navigation = useNavigation();
     
     function handleRedirectToLogin() {
-       navigation.navigate('Login' as never);
+       navigation.navigate('Login');
     }
 
     function handleRedirectToCadastro(){
-        navigation.navigate('CadastroOne' as never);
+        navigation.navigate('CadastroOne');
     }
 
 

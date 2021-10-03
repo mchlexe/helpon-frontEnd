@@ -12,6 +12,7 @@ import {
 import api from '../../api/axios';
 import { Login } from '../Login';
 import { Alert } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 interface userProps {
@@ -22,7 +23,7 @@ interface ResponseData {
     message: string;
 }
 
-export const CadastroTwo = ({ cpfCnpj }:userProps) => {
+export const CadastroTwo = () => {
 
     const [ rua, setRua ] = useState('');
     const [ numero, setNumero ] = useState('');
@@ -30,49 +31,37 @@ export const CadastroTwo = ({ cpfCnpj }:userProps) => {
     const [ bairro, setBairro ] = useState('');
     const [ estado, setEstado ] = useState('');
     const [ complemento, setComplemento ] = useState('');
-    const [cadastroFinalizado, setCadastroFinalizado] = useState(false);
+
+    const navigation = useNavigation();
+    const route = useRoute();
+    const user = route.params as userProps;
+    
     
     const handleConfirmarCadastro = async () => {
 
         const localizacao = {
-            cpfCnpj,
+            cpfCnpj: user.cpfCnpj,
             rua, 
             numero,
             cidade,
             bairro,
-            estado, 
+            uf: estado, 
             complemento
         }
 
-        const response = await api.put('/usuario/atualizar', localizacao)
+        const response = await api.put('/usuario/coordenadas', localizacao)
         const { message } = response.data as unknown as ResponseData;
 
-        if (message === 'Usuario atualizado com sucesso!') {
+        if (message === 'Localização atribuida com sucesso !') {
         
-            setCadastroFinalizado(true)
+            navigation.navigate('Login');
         
         } else {
 
-            Alert.alert(
-                'Erro',
-                'Desculpe, ocorreu um erro ao tentar finalizar o cadastro',
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => {}
-                    }
-                ]
-            );
+            Alert.alert('Erro','Desculpe, ocorreu um erro ao tentar finalizar o cadastro');
 
         }
-
-
     }
-
-    if ( cadastroFinalizado ) {
-        return <Login />
-    }
-
 
     return (
         <Container>

@@ -2,21 +2,26 @@
 import React, { useState } from 'react';
 import { Input } from '../../components/Input';
 import logo from '../../assets/logo/logo.png';
+import userDefaultImage from '../../assets/userDefaultImage/userDefaultImage.png';
 
 import {
     Container,
     SubContainer,
     Logo,
     CaixaSelect,
-    Select
+    Select,
+    ContainerImages,
+    FotoPerfil,
+    ContainerFotoPerfil,
+    Botao,
+    Icone
 } from './style';
 
 import { Button } from '../../components/Button';
 import api from '../../api/axios';
-import { CadastroTwo } from '../CadastroTwo';
 import { Alert } from 'react-native';
-import { Login } from '../Login';
-
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
 interface ResponseData {
     message: string;
@@ -24,60 +29,116 @@ interface ResponseData {
 
 export const CadastroOne = () => {
 
+    const [fotoPerfil, setFotoPerfil] = useState('');
     const [userName, setUserName] = useState('');
     const [cpfCnpj, setCpfCnpj] = useState('');
     const [telefone, setTelefone] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [userType, setUserType] = useState('Consumidor'); //O valor do select começa com "Consumidor"
-    const [cadastrado, setCadastrado] = useState(false);
+    const [userType, setUserType] = useState('Consumidor'); //O valor do select começa com "Consumidor
 
-    const handleCadastrar = async () => {
-        
-        const novoUsuario = {
-            nome: userName,
-            cpfCnpj, //Sintaxe curta de objetos, mesma coisa que cpfCnpj: CpfCnpj : )
-            telefone: telefone,
-            email: email,
-            senha: senha, 
-            tipo: userType,
+    const navigation = useNavigation();
+    console.log(fotoPerfil)
+    async function handleCadastrar() {
+
+        const data = new FormData();
+
+        data.append('nome', userName);
+        data.append('cpfCnpj', cpfCnpj)
+        data.append('telefone', telefone);
+        data.append('email', email);
+        data.append('senha', senha);
+        data.append('tipo', userType);
+
+        if (fotoPerfil !== '') {
+
+            data.append('profilePicture', {
+                name: 'fotoDePerfil.jpg',
+                type: 'image/jpeg',
+                uri: fotoPerfil
+            } as any)
+
         }
-            const response = await api.post('usuario/inserir', novoUsuario);
-            const { message } = response.data as unknown as ResponseData;
 
-            if (message === 'Usuário inserido com sucesso !') {
-               
-                setCadastrado(true);
-            
+        const response = await api.post('/usuario/inserir', data);
+        const { message } = response.data as unknown as ResponseData;
+
+        if (message === 'Usuário inserido com sucesso !') {
+           
+            if (['Comércio', 'Instituição'].includes(userType)) {
+
+                navigation.navigate('CadastroTwo', { cpfCnpj })
+    
             } else {
-
-                Alert.alert(
-                    'Erro !',
-                    'Ocorreu um problema ao realizar o cadastro !',
-                    [
-                        {
-                            text: 'OK',
-                            onPress: () => {}
-                        }
-                    ]
-                );
+    
+                navigation.navigate('Login');
+    
             }
+
+        } else {
+            Alert.alert('Erro !', 'Desculpe mas houve uma falha ao tentar cadastrar o usuário !');
+        }
+
     }
 
-    if (cadastrado) {
-     
-        if (['Comércio', 'Instituição'].includes(userType)) {
-            return <CadastroTwo cpfCnpj={cpfCnpj} />
-        } else {
-            return <Login />
+    async function handleRecuperarImage() {
+
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (status !== 'granted') {
+            Alert.alert('Erro ', 'Para fazer o upload você precisa permitir que a aplicação tenha acesso a galeria de fotos : )');
+            return;
         }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            quality: 1,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images
+        });
+
+        if (result.cancelled) {
+            Alert.alert('Upload Cancelado');
+            return;
+        }
+
+        const { uri } = result;
+
+        setFotoPerfil(uri);
+
     }
 
     return (
 
         <Container>
             <SubContainer>
-                <Logo source={logo} />
+
+                <ContainerImages>
+
+                    <Logo source={logo} />
+
+                    {
+                        fotoPerfil === '' && (
+                            <ContainerFotoPerfil>
+                                <FotoPerfil source={userDefaultImage} />
+                                <Botao onPress={handleRecuperarImage}>
+                                    <Icone name="plus" />
+                                </Botao>
+                            </ContainerFotoPerfil>
+                        )
+                    }
+
+                    {
+                        fotoPerfil !== '' && (
+                            <ContainerFotoPerfil>
+                                <FotoPerfil source={{ uri: fotoPerfil }} />
+                                <Botao onPress={handleRecuperarImage}>
+                                    <Icone name="plus" />
+                                </Botao>
+                            </ContainerFotoPerfil>
+                        )
+                    }
+
+                </ContainerImages>
                 <Input
                     placeholder="Nome"
                     icon="user"
@@ -92,7 +153,7 @@ export const CadastroOne = () => {
                     type="text"
                     value={cpfCnpj}
                     onChangeText={setCpfCnpj}
-                    
+
                 />
                 <Input
                     placeholder="Telefone"
@@ -118,8 +179,8 @@ export const CadastroOne = () => {
 
                 <CaixaSelect>
                     <Select
-                         selectedValue={userType}
-                         onValueChange={(itemValue, itemIndex) => setUserType(String(itemValue))}
+                        selectedValue={userType}
+                        onValueChange={(itemValue, itemIndex) => setUserType(String(itemValue))}
                     >
                         <Select.Item label="Consumidor" value="Consumidor" />
                         <Select.Item label="Instituição" value="Instituição" />
