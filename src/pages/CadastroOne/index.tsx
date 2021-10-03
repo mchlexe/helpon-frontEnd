@@ -4,6 +4,8 @@ import { Input } from '../../components/Input';
 import logo from '../../assets/logo/logo.png';
 import userDefaultImage from '../../assets/userDefaultImage/userDefaultImage.png';
 
+import { validaCNPJ, validaCpf,  validaEmail } from '../../utils/validation';
+
 import {
     Container,
     SubContainer,
@@ -41,43 +43,78 @@ export const CadastroOne = () => {
     console.log(fotoPerfil)
     async function handleCadastrar() {
 
-        const data = new FormData();
-
-        data.append('nome', userName);
-        data.append('cpfCnpj', cpfCnpj)
-        data.append('telefone', telefone);
-        data.append('email', email);
-        data.append('senha', senha);
-        data.append('tipo', userType);
-
-        if (fotoPerfil !== '') {
-
-            data.append('profilePicture', {
-                name: 'fotoDePerfil.jpg',
-                type: 'image/jpeg',
-                uri: fotoPerfil
-            } as any)
-
-        }
-
-        const response = await api.post('/usuario/inserir', data);
-        const { message } = response.data as unknown as ResponseData;
-
-        if (message === 'Usuário inserido com sucesso !') {
-           
-            if (['Comércio', 'Instituição'].includes(userType)) {
-
-                navigation.navigate('CadastroTwo', { cpfCnpj })
-    
-            } else {
-    
-                navigation.navigate('Login');
-    
+        function validaCampos(){
+            let error = false;
+            if(!validaEmail(email)){
+                // setEmail("E-mail invalido")
+                error = true
             }
-
-        } else {
-            Alert.alert('Erro !', 'Desculpe mas houve uma falha ao tentar cadastrar o usuário !');
+            const tamanho = cpfCnpj.length;
+            if(tamanho <= 11){
+                if(!validaCpf(cpfCnpj)){
+                    // setCpfCnpj("CPF inválido")
+                    error = true
+                }
+                return !error;
+            }
+            if(tamanho <= 14 || tamanho >= 14){
+                if(!validaCNPJ(cpfCnpj)){
+                    // setCpfCnpj("CNPJ inválido")
+                    error = true
+                }
+                return !error;
+            }
         }
+
+        if(userName.length == 0 || cpfCnpj.length == 0 || telefone.length == 0 || email.length == 0 || senha.length == 0){
+            Alert.alert('Erro!', 'Preencha todo o formulário')
+        }
+        else{
+            if(validaCampos()){
+                
+                const data = new FormData();
+
+                data.append('nome', userName);
+                data.append('cpfCnpj', cpfCnpj)
+                data.append('telefone', telefone);
+                data.append('email', email);
+                data.append('senha', senha);
+                data.append('tipo', userType);
+
+                if (fotoPerfil !== '') {
+
+                    data.append('profilePicture', {
+                        name: 'fotoDePerfil.jpg',
+                        type: 'image/jpeg',
+                        uri: fotoPerfil
+                    } as any)
+
+                }
+
+                const response = await api.post('/usuario/inserir', data);
+                const { message } = response.data as unknown as ResponseData;
+
+                
+
+                    if (message === 'Usuário inserido com sucesso !') {
+                    
+                        if (['Comércio', 'Instituição'].includes(userType)) {
+
+                            navigation.navigate('CadastroTwo', { cpfCnpj })
+                
+                        } else {
+                
+                            navigation.navigate('Login');
+                
+                        }
+
+                    } else {
+                        Alert.alert('Erro !', 'Desculpe mas houve uma falha ao tentar cadastrar o usuário !');
+                    }
+                }else{
+                    Alert.alert('Erro!', 'Dados invalidos ou incompletos')
+                }
+            }
 
     }
 
