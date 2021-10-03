@@ -9,7 +9,7 @@ const Routes: React.FC = () => {
     return (
 
         <NavigationContainer>
-            <Navigator>
+            <Navigator screenOptions={{headerShown: false, cardStyle:{backgroundColor: 'white'}}}>
                 <Screen name="Login" component={Login}/>
             </Navigator>
         </NavigationContainer>
