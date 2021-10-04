@@ -23,7 +23,7 @@ export const Login = () => {
     const [password, setPassword] = useState('');
 
     function redirectToHomePage () {
-        navigation.navigate('Perfil');
+        navigation.navigate('Home');
     }
 
     async function handleLogin () {
