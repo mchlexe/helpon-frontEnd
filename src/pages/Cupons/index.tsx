@@ -66,6 +66,7 @@ interface User {
 export const Cupons = () => {
 
     const [cuponsAdquiridos, setCuponsAdquiridos] = useState<Cupom[]>([]);
+    const [tipoUsuario, setTipoUsuario] = useState('');
 
     const navigation = useNavigation();
     const router = useRoute();
@@ -88,7 +89,8 @@ export const Cupons = () => {
         //     dados, { headers: { 'x-access-token': `${token}` } }
         // );
 
-        console.log(user.cupons);
+        // console.log(user.tipo);
+        setTipoUsuario(user.tipo);
         setCuponsAdquiridos(user.cupons);
     }
 
@@ -100,6 +102,10 @@ export const Cupons = () => {
     function handleRedirectToCupomAberto(id: number) {
         navigation.navigate('CupomAberto', {id});
     }
+
+    function handleRedirectToCadastroCupom() {
+        navigation.navigate('CadastroCupom');
+    }
     
     return (
 
@@ -108,7 +114,16 @@ export const Cupons = () => {
             <MenuSuperior>
                 <Logo source={logo} />
                 <ContainerPage>
-                        <TextoHeader textColor={'white'}>Cupons adquiridos</TextoHeader>
+
+                    {tipoUsuario === 'Consumidor' ?
+                        (<TextoHeader textColor={'white'}>Cupons adquiridos</TextoHeader>)
+                        :
+                        (<Button 
+                            text="Novo cupom"
+                            textColor="white"
+                            backgroundColor="#68BB6C"
+                            onPress={() => handleRedirectToCadastroCupom() }
+                    />)}                        
                 </ContainerPage>
             </MenuSuperior>
 
