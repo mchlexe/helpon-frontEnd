@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import MapView, { Callout } from 'react-native-maps';
 
 export const Container = styled.View`
     flex: 1;
@@ -49,7 +50,8 @@ export const ContainerInfo = styled.View`
 
 export const SubContainerInfo = styled.View`
     justify-content: space-around;
-    padding-left: 5px;
+
+    width: 70%;
 `;
 
 export const UserName = styled.Text`
@@ -69,7 +71,7 @@ export const Descricao = styled.Text`
 // `;
 
 export const DadosPessoais = styled.View`
-    height: 250px;
+    height: 500px;
     justify-content: space-evenly;
     align-items: center;
 `;
@@ -88,4 +90,26 @@ export const Informacao = styled.Text`
 
 export const ContainerInformacao = styled.View`
     width: 100%;
+`;
+
+export const ContainerMapa = styled.View`
+    width: 100%;
+    height: 220px;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Mapa = styled(MapView)`
+    width: 100%;
+    height: 100%;
+`;
+
+export const InfoMarcador = styled(Callout)`
+    background-color: orange;
+`;
+
+export const TextoMarcador = styled.Text`
+    color: white;
+    font-family: ${props => props.theme.fonts.bold};
 `;

@@ -1,7 +1,10 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarraNavegacao } from '../../components/BarraNavegacao';
 import logo from '../../assets/logo/logo.png';
+import { getDataStorage } from '../../utils/asyncStorage';
+
+
 
 import {
     Container,
@@ -19,18 +22,86 @@ import {
     DadosPessoais,
     Titulo,
     Informacao,
-    ContainerInformacao
+    ContainerInformacao,
+    Mapa,
+    ContainerMapa,
+    InfoMarcador,
+    TextoMarcador
 } from './style';
 
 import { Button } from '../../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import api from '../../api/axios';
+import { Alert } from 'react-native';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
+interface UserProps {
+    cpfCnpj: string;
+}
+
+export interface User {
+    cpfCnpj: string;
+    fotoPerfil: string; 
+    nome: string;
+    telefone: string
+    email: string;
+    senha: string; 
+    saldo: number; 
+    status: boolean; 
+    tipo: string; 
+    uf?: string;
+    cidade?: string;
+    bairro?: string; 
+    rua?: string;
+    numero?: string; 
+    complemento?: string; 
+    descricao?: string;
+    ramo?: string; 
+    cupons?: string;
+    doacoes?: string; 
+    latitude: number;
+    longitude: number; 
+  }
 
 export const Perfil = () => {
+
+    const [user, setUser] = useState<User | null>(null);
+
+    const navigation = useNavigation();
+    const router = useRoute();
+    const { cpfCnpj } = router.params as UserProps;
+
+    async function handleGetUser() {
+
+        const token = await getDataStorage('Auth.token');
+
+        if (token === null) {
+            Alert.alert('Token invalido !', 'Você precisa se logar para acessar esta página !');
+            return;
+        }
+
+        const dados = {
+            cpfCnpj
+        }
+
+        const response = await api.post('/usuario/listar',
+            dados, { headers: { 'x-access-token': `${token}` } }
+        );
+
+        const data = response.data as unknown as Array<User>;
+        setUser(data[0]);
+
+    }
+
+
+    useEffect(() => {
+        handleGetUser();
+    }, []);
 
     return (
 
         <Container>
+
             <MenuSuperior>
                 <Logo source={logo} />
                 <ContainerPage>
@@ -38,39 +109,91 @@ export const Perfil = () => {
                 </ContainerPage>
             </MenuSuperior>
             <InformacoesPerfil>
-                <ContainerInfo>
-                    <FotoPerfil source={{ uri: 'https://avatars.githubusercontent.com/u/50963829?v=4' }} />
-                    <SubContainerInfo>
-                        <UserName>Wendel Alves</UserName>
-                        <Descricao>Desenvolver FullStack em preparação.</Descricao>
-                    </SubContainerInfo>
-                </ContainerInfo>
-                <DadosPessoais>
 
-                    <ContainerInformacao>
-                        <Titulo>Telefone</Titulo>
-                        <Informacao>(83)99122-3344</Informacao>
-                    </ContainerInformacao>
+                {
+                    user !== null && (
 
-                    <ContainerInformacao>
-                        <Titulo>Email</Titulo>
-                        <Informacao>wendel.alves@academico.ifpb.edu.br</Informacao>
-                    </ContainerInformacao>
+                        <>
+                            <ContainerInfo>
+                                <FotoPerfil source={{ uri: user.fotoPerfil }} />
+                                <SubContainerInfo>
+                                    <UserName>{user.nome}</UserName>
 
-                    <Button
-                        text="Localização"
-                        textColor="white"
-                        backgroundColor="teal"
-                        icone="map"
+                                    {
+                                        user.descricao !== '' && (
 
-                    />
+                                            <Descricao>{user.descricao}</Descricao>
 
-                </DadosPessoais>
+                                        )
+                                    }
+                                    {
+                                        user.ramo !== '' && (
+                                            <Descricao>{user.ramo}</Descricao>
+                                        )
+                                    }
+
+                                </SubContainerInfo>
+                            </ContainerInfo>
+                            <DadosPessoais>
+
+                                <ContainerInformacao>
+                                    <Titulo>Telefone</Titulo>
+                                    <Informacao>{user.telefone}</Informacao>
+                                </ContainerInformacao>
+
+                                <ContainerInformacao>
+                                    <Titulo>Email</Titulo>
+                                    <Informacao>{user.email}</Informacao>
+                                </ContainerInformacao>
+                                <ContainerInformacao>
+                                    <Titulo>Localização</Titulo>
+                                    <Informacao>{user.rua}-{user.numero}, {user.cidade}, {user.uf}</Informacao>
+                                    <ContainerMapa>
+                                        <Mapa 
+                                            provider={PROVIDER_GOOGLE}
+                                            initialRegion={{
+                                                latitude: user.latitude,
+                                                longitude: user.longitude,
+                                                latitudeDelta: 0.008,
+                                                longitudeDelta: 0.008
+                                                
+                                            }}
+                                        >
+                                            <Marker 
+                                                coordinate={{
+                                                    latitude: user.latitude,
+                                                    longitude: user.longitude
+                                                }}
+                                                calloutAnchor={
+                                                    {x:3.4, y: 0.8}
+                                                }
+                                            >
+
+                                                <InfoMarcador tooltip={true}>
+
+                                                  <TextoMarcador>{user.nome}</TextoMarcador>
+
+                                                </InfoMarcador>
+
+                                            </Marker>
+                                        </Mapa>
+                                    </ContainerMapa>
+                                </ContainerInformacao>
+                            </DadosPessoais>
+                        </>
+                    )
+                }
+
+                {
+                    user === null && (
+                        <Titulo>Erro</Titulo>
+                    )
+                }
+
+
             </InformacoesPerfil>
-            {/* <MenuInferior> Removi para ficar um único componente sendo reutilizado  */}
-                <BarraNavegacao />
-            {/* </MenuInferior> */}
 
+            <BarraNavegacao />
         </Container>
 
     );

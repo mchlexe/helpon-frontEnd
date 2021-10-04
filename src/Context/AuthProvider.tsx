@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { Container } from './styles';
 
-interface User {
+export interface User {
   cpfCnpj: string;
   fotoPerfil: string; 
   nome: string;
@@ -26,8 +26,8 @@ interface User {
   ramo?: string; 
   cupons?: string;
   doacoes?: string; 
-  latitude?: string;
-  longitude?: string; 
+  latitude?: number;
+  longitude?: number; 
 }
 
 interface ResponseData {
