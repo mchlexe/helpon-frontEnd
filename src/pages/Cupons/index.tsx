@@ -88,10 +88,6 @@ export const Cupons = () => {
         //     dados, { headers: { 'x-access-token': `${token}` } }
         // );
 
-        const response = await api.get('/cupom/listarPorStatus/false');
-        
-        var result = response.data;
-
         console.log(user.cupons);
         setCuponsAdquiridos(user.cupons);
     }
@@ -137,7 +133,7 @@ export const Cupons = () => {
                             // Falta estilo condicional para o cupom que já foi usado
                             
                             <TouchableOpacity                            
-                            onPress={() => handleRedirectToCupomAberto(item.id) }>
+                                onPress={() => handleRedirectToCupomAberto(item.id) }>
                                 <ContainerCupom>
                                     <Cupom 
                                         icone="ticket-alt"
