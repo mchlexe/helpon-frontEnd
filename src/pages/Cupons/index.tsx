@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import logo from '../../assets/logo/logo.png';
 import { Input } from '../../components/Input';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import {
     Container,
     MenuSuperior,
@@ -18,7 +19,12 @@ import { TextoHeader } from '../Cupons/style';
 import { FlatList } from 'react-native';
 import { Button } from '../../components/Button';
 import api from '../../api/axios';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { getDataStorage } from '../../utils/asyncStorage';
+
+interface UserProps {
+    cpfCnpj: string;
+}
 
 interface Cupom {
     autor: string;
@@ -33,25 +39,67 @@ interface Cupom {
     id: number;
 }
 
+interface User {
+    cpfCnpj: string;
+    fotoPerfil: string; 
+    nome: string;
+    telefone: string
+    email: string;
+    senha: string; 
+    saldo: number; 
+    status: boolean; 
+    tipo: string; 
+    uf?: string;
+    cidade?: string;
+    bairro?: string; 
+    rua?: string;
+    numero?: string; 
+    complemento?: string; 
+    descricao?: string;
+    ramo?: string; 
+    cupons?: string;
+    doacoes?: string; 
+    latitude: number;
+    longitude: number; 
+  }
+
 export const Cupons = () => {
 
-    const [cupons, setCupons] = useState<Cupom[]>([]);
+    const [cuponsAdquiridos, setCuponsAdquiridos] = useState<Cupom[]>([]);
 
-    async function handleCupom() {
+    const navigation = useNavigation();
+    const router = useRoute();
+    // const { cpfCnpj } = router.params as UserProps;
 
-        const response = await api.get('/cupom/listarPorStatus/true');
+    async function handleCuponsAdquiridos() {
+
+        const userStorage = await getDataStorage('Auth.user');
+        let user;
+
+        if (userStorage != null) {
+             user = JSON.parse(userStorage) as User;
+        } else {
+            Alert.alert('Usuário invalido !', 'Você precisa se logar para acessar esta página !');
+            return;
+
+        }
+
+        // const response = await api.post('/usuario/listar',
+        //     dados, { headers: { 'x-access-token': `${token}` } }
+        // );
+
+        const response = await api.get('/cupom/listarPorStatus/false');
         
         var result = response.data;
 
-        console.log(result);
-        setCupons(result);
+        console.log(user.cupons);
+        setCuponsAdquiridos(user.cupons);
     }
 
     useEffect(() => {
-        handleCupom();
+        handleCuponsAdquiridos();
       }, []);
 
-    const navigation = useNavigation();
 
     function handleRedirectToCupomAberto(id: number) {
         navigation.navigate('CupomAberto', {id});
@@ -82,25 +130,26 @@ export const Cupons = () => {
 
             
             <ContainerLista>
-                <BarraOrdem />
-
                 <FlatList
-                    data={cupons}
+                    data={cuponsAdquiridos}
                     renderItem={({item}) => {
                         return(   
                             // Falta estilo condicional para o cupom que já foi usado
-                            <ContainerCupom>
-                                <Cupom 
-                                    icone="ticket-alt"
-                                    textColor="white"
-                                    backgroundColor=""
-                                    text={''}
-                                    onPress={() => handleRedirectToCupomAberto(item.id) }               />
-                                    {/* É pra quando clicar aqui enviar para a tela
-                                    CupomAberto */}
                             
-                                <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
-                            </ContainerCupom>
+                            <TouchableOpacity                            
+                            onPress={() => handleRedirectToCupomAberto(item.id) }>
+                                <ContainerCupom>
+                                    <Cupom 
+                                        icone="ticket-alt"
+                                        textColor="white"
+                                        backgroundColor=""
+                                        text={''}             />
+                                        {/* É pra quando clicar aqui enviar para a tela
+                                        CupomAberto */}
+                                
+                                    <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
+                                </ContainerCupom>                                            
+                            </TouchableOpacity>
                         );
                         
                     }}

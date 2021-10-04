@@ -36,7 +36,7 @@ export const ContainerCupom = styled.View`
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    background-color: #FF8955;
+    background-color: #F7BE6F;
     border-radius: 10px;
     border: 3px dashed #FF8955;
     margin-bottom: 4%;

@@ -32,7 +32,7 @@ export const BarraNavegacao = () => {
     
 
     function handleRedirectToEditarPerfil() {
-        navigation.navigate('CupomAberto');
+        navigation.navigate('EditarPerfil');
     }
 
     return (
@@ -48,16 +48,14 @@ export const BarraNavegacao = () => {
 
             
             <TouchableOpacity            
-                onPress={() => handleRedirectToHome() }>
+                onPress={() => handleRedirectToCupons() }>
                 <Link>
                     <Icone name="shopping-bag"/>
                     <Page>Cupons</Page>
                 </Link>                
             </TouchableOpacity>
 
-            
-
-            
+                        
             <TouchableOpacity            
                 onPress={() => handleRedirectToEditarPerfil() }>
                 <Link>

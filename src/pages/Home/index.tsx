@@ -15,7 +15,7 @@ import { BarraOrdem } from '../../components/BarraOrdem';
 import { Cupom } from '../../components/Cupom';
 import { TextoCupom } from '../../components/Cupom/style';
 import { TextoHeader } from '../Cupons/style';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { Button } from '../../components/Button';
 import api from '../../api/axios';
 import { useNavigation } from '@react-navigation/native';
@@ -91,18 +91,18 @@ export const Home = () => {
                     renderItem={({item}) => {
                         return(   
                             // Falta estilo condicional para o cupom que já foi usado
+                        <TouchableOpacity                            
+                        onPress={() => handleRedirectToCupomAberto(item.id) }>
                             <ContainerCupom>
                                 <Cupom 
                                     icone="ticket-alt"
                                     textColor="white"
                                     backgroundColor=""
-                                    text={''}
-                                    onPress={() => handleRedirectToCupomAberto(item.id) }            />
-                                    {/* É pra quando clicar aqui enviar para a tela
-                                    CupomAberto */}
+                                    text={''}            />
                             
                                 <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
-                            </ContainerCupom>
+                            </ContainerCupom>                                                                    
+                        </TouchableOpacity>
                         );
                         
                     }}
