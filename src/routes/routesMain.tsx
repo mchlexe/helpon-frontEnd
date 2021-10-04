@@ -9,6 +9,7 @@ const RoutesMain: React.FC = () => {
     const {logado} = useMyContext();
 
     return logado ? <RotasPrivadas /> : <RotasPublicas />
+        
 }
 
 export default RoutesMain;

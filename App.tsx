@@ -12,6 +12,7 @@ import {
 } from '@expo-google-fonts/inter';
 import { AuthProvider } from './src/Context/AuthProvider';
 import RoutesMain from './src/routes/routesMain';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
@@ -33,15 +34,22 @@ export default function App() {
 
     return (
 
-      <ThemeProvider theme={theme} >
 
-        <AuthProvider>
+      <NavigationContainer>
 
-          <RoutesMain />
+        <ThemeProvider theme={theme} >
 
-        </AuthProvider>
-        
-      </ThemeProvider>
+          <AuthProvider>
+
+            <RoutesMain />
+
+          </AuthProvider>
+
+        </ThemeProvider>
+
+      </NavigationContainer>
+
+
 
 
     );

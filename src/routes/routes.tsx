@@ -12,7 +12,6 @@ const {Navigator, Screen} = createStackNavigator();
 const Routes: React.FC = () => {
     return (
 
-        <NavigationContainer>
             <Navigator 
                 screenOptions={{headerShown: false, cardStyle:{backgroundColor: 'white'}}}
                 initialRouteName="Start"
@@ -22,7 +21,6 @@ const Routes: React.FC = () => {
                 <Screen name="CadastroOne" component={CadastroOne} />
                 <Screen name="CadastroTwo" component={CadastroTwo} />
             </Navigator>
-        </NavigationContainer>
 
     );
 }

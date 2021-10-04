@@ -14,7 +14,6 @@ const {Navigator, Screen} = createStackNavigator();
 const RoutesPrivate: React.FC = () => {
   return (
 
-        <NavigationContainer>
             <Navigator 
               screenOptions={{headerShown: false, cardStyle:{backgroundColor: 'white'}}} 
             >
@@ -25,7 +24,6 @@ const RoutesPrivate: React.FC = () => {
                <Screen name="EditarPerfil" component={EditarPerfil}/>
                <Screen name="Perfil" component={Perfil}/>
             </Navigator>
-        </NavigationContainer>
 
   );
 }

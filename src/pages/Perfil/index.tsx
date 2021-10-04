@@ -23,6 +23,8 @@ import {
 } from './style';
 
 import { Button } from '../../components/Button';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 
 export const Perfil = () => {
 
