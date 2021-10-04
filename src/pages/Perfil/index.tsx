@@ -32,8 +32,9 @@ import {
 import { Button } from '../../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../../api/axios';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import AppLoading from 'expo-app-loading';
 
 interface UserProps {
     cpfCnpj: string;
@@ -186,7 +187,10 @@ export const Perfil = () => {
 
                 {
                     user === null && (
-                        <Titulo>Erro</Titulo>
+
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                            <AppLoading />
+                        </View>
                     )
                 }
 
