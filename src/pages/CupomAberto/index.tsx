@@ -1,5 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
+import api from '../../api/axios';
 import logo from '../../assets/logo/logo.png';
 import { Input } from '../../components/Input';
 import {
@@ -29,64 +30,90 @@ const CUPOM = [
       instituicao: "Abrigo Gatil"
     }
   ];
+import { useNavigation, useRoute  } from '@react-navigation/native';
 
+interface props {
+  id: string;
+}
 
 export const CupomAberto = () => {
 
-    const [selectedId, setSelectedId] = useState(null);
+  const navigation = useNavigation();
+  const router = useRoute();
+  const cupom_param = router.params as props;
  
 
-    return (
+  const [isLoading, setLoading] = useState(false);
+  const [cupom, setCupom] = useState([]);
 
-        <Container>
+  async function handleCupom() {
+    const response = await api.get(`/cupom/listar/${cupom_param.id}`);
+
+    console.log(response.data[0]);
+    setCupom(response.data[0]);
+  }
 
 
-          <MenuSuperior>
-            <Logo source={logo} />
-            <ContainerPage>
-                    <TextoHeader textColor={'#FF8955'}>Cupom</TextoHeader>
-            </ContainerPage>
-          </MenuSuperior>
-          
+  //Falta pegar os cupons do próprio usuário para definir qual botão será exibido [Depende do Login]
 
-          
-          <ContainerBody>
-            <ContainerLoja>            
-                <Icone name={'store'} size={50} color={'#2C88D9'} />
-                <TextoHeader textColor={'#2C88D9'}>Nome da Loja</TextoHeader>
-            </ContainerLoja>
+  useEffect(() => {
+    handleCupom();
+  }, []);
 
-            <ContainerCupom>            
-                <Icone name={'ticket-alt'} size={150} color={'#FF8955'} />
-                <TextoHeader textColor={'#FF8955'}>Descrição do Cupom</TextoHeader>
-                <Button 
-                      text="Usar cupom"
-                      textColor="white"
-                      backgroundColor="#1AAE9F"
-                />
-                <Button 
-                      text="Comprar cupom"
-                      textColor="white"
-                      backgroundColor="#2C88D9"
-                />
-                <Button 
-                      text="Comprar cupom"
-                      textColor="white"
-                      backgroundColor="gray"
-                />
-            </ContainerCupom>
+  return (
 
-            <ContainerInstituicao>
-                <Icone name={'money-bill-wave-alt'} size={50} color={'#1AAE9F'} />
-                <TextoHeader textColor={'#1AAE9F'}>Nome da Institução</TextoHeader>
-            </ContainerInstituicao>
+      <Container>
 
-          </ContainerBody>
 
-          <BarraNavegacao />
+        <MenuSuperior>
+          <Logo source={logo} />
+          <ContainerPage>
+                  <TextoHeader textColor={'#FF8955'}>Cupom</TextoHeader>
+          </ContainerPage>
+        </MenuSuperior>
+        
 
-        </Container>
+        
+        <ContainerBody>
+          <ContainerLoja>            
+              <Icone name={'store'} size={50} color={'#2C88D9'} />
+              <TextoHeader textColor={'#2C88D9'}>{cupom.autorNome}</TextoHeader>
+          </ContainerLoja>
 
-    );
+          <ContainerCupom>            
+              <Icone name={'ticket-alt'} size={150} color={'#FF8955'} />
+              <TextoHeader textColor={'#FF8955'}>{cupom.descricao}</TextoHeader>
+              <Button 
+                    text="Usar cupom"
+                    textColor="white"
+                    backgroundColor="#1AAE9F"
+                    onPress={() => {
+                      alert('oi!');
+                    }}
+              />
+              <Button 
+                    text="Comprar cupom"
+                    textColor="white"
+                    backgroundColor="#2C88D9"
+              />
+              <Button 
+                    text="Comprar cupom"
+                    textColor="white"
+                    backgroundColor="gray"
+              />
+          </ContainerCupom>
+
+          <ContainerInstituicao>
+              <Icone name={'money-bill-wave-alt'} size={50} color={'#1AAE9F'} />
+              <TextoHeader textColor={'#1AAE9F'}>{cupom.instituicaoAlvoNome}</TextoHeader>
+          </ContainerInstituicao>
+
+        </ContainerBody>
+
+        <BarraNavegacao />
+
+      </Container>
+
+  );
 
 }

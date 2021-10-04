@@ -5,8 +5,7 @@ import styled from 'styled-components/native';
 export const Container = styled.KeyboardAvoidingView`
     flex: 1;
     justify-content: space-between;
-    margin-top: 40px;
-    align-items: center;
+    margin-top: 24px;
 `;
 
 export const MenuSuperior = styled.View`

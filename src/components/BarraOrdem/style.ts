@@ -10,12 +10,12 @@ export const Container = styled.View`
     margin-bottom: 3%;
 `;
 
-
 export const Title = styled.Text`
     font-family: ${(props) => props.theme.fonts.regular};
     color: darkgray;
     font-size: 13px;
     width: 100%;
+    margin-left: 3%;
 `;
 
 export const Link = styled.View`

@@ -7,10 +7,9 @@ type textProps = {
 }
 
 export const Container = styled.KeyboardAvoidingView`
-    flex: 1;
-    justify-content: space-between;
-    margin-top: 40px;
-    align-items: center;
+flex: 1;
+justify-content: space-between;
+margin-top: 24px;
 `;
 
 export const MenuSuperior = styled.View`
@@ -55,7 +54,6 @@ export const ContainerLoja = styled.View`
     text-align: center;
     background-color: #DFE6ED;
     border-radius: 10px;
-    border: 3px dashed #2C88D9;
     margin-bottom: 4%;
 `;
 
@@ -67,8 +65,8 @@ export const ContainerCupom = styled.View`
     justify-content: space-evenly;
     text-align: center;
     background-color: white;
-    border-radius: 10px;
     border: 3px dashed #FF8955;
+    border-radius: 10px;
     margin-bottom: 4%;
 `;
 
@@ -81,6 +79,5 @@ export const ContainerInstituicao = styled.View`
     text-align: center;
     background-color: #DFE6ED;
     border-radius: 10px;
-    border: 3px dashed #1AAE9F;
     margin-bottom: 4%;
 `;

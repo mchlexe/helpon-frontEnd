@@ -1,3 +1,4 @@
+import { Picker } from '@react-native-picker/picker';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -52,7 +53,18 @@ export const Acoes = styled.View`
 `;
 
 
-// export const MenuInferior = styled.View`
-//     height: 10%;
-// `;
+export const CaixaSelect = styled.View`
+    width: 100%;
+    height: 45px;
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+`;
+
+export const Select = styled(Picker)`
+    width: 100%;
+    color: darkgray;
+`;
 

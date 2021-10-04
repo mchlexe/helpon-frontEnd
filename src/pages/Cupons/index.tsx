@@ -17,30 +17,35 @@ import { TextoCupom } from '../../components/Cupom/style';
 import { TextoHeader } from '../Cupons/style';
 import { FlatList } from 'react-native';
 import { Button } from '../../components/Button';
+import api from '../../api/axios';
+import { useNavigation } from '@react-navigation/native';
 
-const CUPONS = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      texto: "Cupom #1",
-      ativo: "True",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      texto: "Cupom #2",
-      ativo: "True",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      texto: "Cupom #3",
-      ativo: "False",
-    }
-  ];
 
 
 export const Cupons = () => {
 
-    const [selectedId, setSelectedId] = useState(null);
+    
+       
+    const [cupons, setCupons] = useState([]);
 
+    async function handleCupom() {
+        const response = await api.get('/cupom/listarPorStatus/true');
+        
+        var result = response.data;
+
+        console.log(result);
+        setCupons(result);
+    }
+
+    useEffect(() => {
+        handleCupom();
+      }, []);
+
+    const navigation = useNavigation();
+
+    function handleRedirectToCupomAberto(id: string) {
+        navigation.navigate('CupomAberto', {id});
+    }
     
     return (
 
@@ -70,7 +75,7 @@ export const Cupons = () => {
                 <BarraOrdem />
 
                 <FlatList
-                    data={CUPONS}
+                    data={cupons}
                     renderItem={({item}) => {
                         return(   
                             // Falta estilo condicional para o cupom que já foi usado
@@ -79,14 +84,17 @@ export const Cupons = () => {
                                     icone="ticket-alt"
                                     textColor="white"
                                     backgroundColor=""
-                                    text={''}               />
+                                    text={''}
+                                    onPress={() => handleRedirectToCupomAberto(item.id) }               />
+                                    {/* É pra quando clicar aqui enviar para a tela
+                                    CupomAberto */}
                             
-                                <TextoCupom textColor={'white'}>{item.texto}</TextoCupom>
+                                <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
                             </ContainerCupom>
                         );
                         
                     }}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => String(item.id)}
                     showsVerticalScrollIndicator={false}
                 />
             
