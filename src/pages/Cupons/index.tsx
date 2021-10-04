@@ -20,15 +20,25 @@ import { Button } from '../../components/Button';
 import api from '../../api/axios';
 import { useNavigation } from '@react-navigation/native';
 
-
+interface Cupom {
+    autor: string;
+    autorNome: string;
+    instituicaoAlvo: string;
+    instituicaoAlvoNome: string;
+    data_validade: Date;
+    descricao: string;
+    status: boolean;
+    valor_doado: number;
+    valor: number;
+    id: number;
+}
 
 export const Cupons = () => {
 
-    
-       
-    const [cupons, setCupons] = useState([]);
+    const [cupons, setCupons] = useState<Cupom[]>([]);
 
     async function handleCupom() {
+
         const response = await api.get('/cupom/listarPorStatus/true');
         
         var result = response.data;
@@ -43,7 +53,7 @@ export const Cupons = () => {
 
     const navigation = useNavigation();
 
-    function handleRedirectToCupomAberto(id: string) {
+    function handleRedirectToCupomAberto(id: number) {
         navigation.navigate('CupomAberto', {id});
     }
     

@@ -1,19 +1,17 @@
 import React from 'react';
-
-import { Login } from './src/pages/Login';
-import { Home } from './src/pages/Home';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
-import AppLoading from 'expo-app-loading'; 
+import AppLoading from 'expo-app-loading';
 
-import Routes from './src/routes/routes';
 
-import { 
+import {
   useFonts,
   Inter_400Regular,
   Inter_500Medium,
   Inter_700Bold
- } from '@expo-google-fonts/inter';
+} from '@expo-google-fonts/inter';
+import { AuthProvider } from './src/Context/AuthProvider';
+import RoutesMain from './src/routes/routesMain';
 
 
 
@@ -29,19 +27,23 @@ export default function App() {
   });
 
 
-  if ( !fontsLoaded ) { //Se as fontes não forem carregadas
-      <AppLoading />
+  if (!fontsLoaded) { //Se as fontes não forem carregadas
+    <AppLoading />
   } else {
 
-    return (  
+    return (
 
-        <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme} >
 
-          <Routes />
+        <AuthProvider>
 
-        </ThemeProvider>
+          <RoutesMain />
 
-      
+        </AuthProvider>
+        
+      </ThemeProvider>
+
+
     );
   }
 

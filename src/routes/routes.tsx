@@ -6,7 +6,7 @@ import {Login} from '../pages/Login';
 import { Start } from '../pages/Start';
 import { CadastroOne } from "../pages/CadastroOne";
 import { CadastroTwo } from "../pages/CadastroTwo";
-import { CadastroCupom } from '../pages/CadastroCupom';
+
 
 const {Navigator, Screen} = createStackNavigator();
 const Routes: React.FC = () => {
@@ -15,13 +15,12 @@ const Routes: React.FC = () => {
         <NavigationContainer>
             <Navigator 
                 screenOptions={{headerShown: false, cardStyle:{backgroundColor: 'white'}}}
-                initialRouteName="CadastroCupom"
+                initialRouteName="Start"
             >
                 <Screen name="Start" component={Start}/>
                 <Screen name="Login" component={Login} />
                 <Screen name="CadastroOne" component={CadastroOne} />
                 <Screen name="CadastroTwo" component={CadastroTwo} />
-                <Screen name="CadastroCupom" component={CadastroCupom} />
             </Navigator>
         </NavigationContainer>
 
