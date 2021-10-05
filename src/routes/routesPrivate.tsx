@@ -8,6 +8,8 @@ import { Cupons } from '../pages/Cupons';
 import { EditarPerfil } from '../pages/EditarPerfil';
 import { Perfil } from '../pages/Perfil';
 import { Home } from '../pages/Home';
+import { EditarPerfilTwo } from '../pages/EditarPerdilTwo';
+
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -22,7 +24,7 @@ const RoutesPrivate: React.FC = () => {
                <Screen name="CupomAberto" component={CupomAberto}/>
                <Screen name="Cupons" component={Cupons}/>
                <Screen name="EditarPerfil" component={EditarPerfil}/>
-               <Screen name="Perfil" component={Perfil}/>
+               <Screen name="EditarPertilTwo" component={EditarPerfilTwo}/>
             </Navigator>
 
   );
