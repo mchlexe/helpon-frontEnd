@@ -2,8 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading';
-
-
 import {
   useFonts,
   Inter_400Regular,
@@ -13,13 +11,16 @@ import {
 import { AuthProvider } from './src/Context/AuthProvider';
 import RoutesMain from './src/routes/routesMain';
 import { NavigationContainer } from '@react-navigation/native';
+import { LogBox } from 'react-native';
 
 
 
 
 
 
-export default function App() {
+export default function App() {  
+
+   
 
   let [fontsLoaded] = useFonts({ //useFonts é um hook que carrega as fonts e retorna true caso elas sejam carregadas e falso caso o contrário.
     Inter_400Regular,
@@ -31,6 +32,7 @@ export default function App() {
   if (!fontsLoaded) { //Se as fontes não forem carregadas
     <AppLoading />
   } else {
+    LogBox.ignoreAllLogs(); 
 
     return (
 

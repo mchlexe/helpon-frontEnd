@@ -86,6 +86,7 @@ export const Cupons = () => {
 
             if ( data.length > 0 ) {
                 setCuponsAdquiridos(data[0].cupons)
+                console.log(data[0].cupons)
                 setTipoUsuario(data[0].tipo)
             } 
 
@@ -147,25 +148,29 @@ export const Cupons = () => {
                 <FlatList
                     data={cuponsAdquiridos}
                     renderItem={({item}) => {
-                        return(   
-                            // Falta estilo condicional para o cupom que já foi usado
-                            
-                            <TouchableOpacity                            
-                                onPress={() => handleRedirectToCupomAberto(item.id) }>
-                                <ContainerCupom>
-                                    <Cupom 
-                                        icone="ticket-alt"
-                                        textColor="white"
-                                        backgroundColor=""
-                                        text={''}             />
-                                        {/* É pra quando clicar aqui enviar para a tela
-                                        CupomAberto */}
-                                
-                                    <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
-                                </ContainerCupom>                                            
-                            </TouchableOpacity>
-                        );
-                        
+
+                        if (item.id) {
+                            return(   
+                                // Falta estilo condicional para o cupom que já foi usado
+                                    
+                                <TouchableOpacity                            
+                                    onPress={() => handleRedirectToCupomAberto(item.id) }>
+                                    <ContainerCupom>
+                                        <Cupom 
+                                            icone="ticket-alt"
+                                            textColor="white"
+                                            backgroundColor=""
+                                            text={''}             />
+                                            {/* É pra quando clicar aqui enviar para a tela
+                                            CupomAberto */}
+                                    
+                                        <TextoCupom textColor={'white'}>{item.descricao}</TextoCupom>
+                                    </ContainerCupom>                                            
+                                </TouchableOpacity>
+                            );
+                        } else {
+                            return null;
+                        }                        
                     }}
                     keyExtractor={item => String(item.id)}
                     showsVerticalScrollIndicator={false}

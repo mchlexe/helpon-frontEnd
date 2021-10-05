@@ -40,7 +40,6 @@ export const ContainerBody = styled.View`
 export const TextoHeader = styled.Text<textProps>`
     color: ${(props) => props.textColor};
     font-size: 24px;
-    margin-right: 5%;
     font-family: ${(props) => props.theme.fonts.medium};
     text-align: center;
 `;

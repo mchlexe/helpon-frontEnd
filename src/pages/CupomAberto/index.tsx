@@ -82,17 +82,19 @@ export const CupomAberto = () => {
           descricao: cupom.descricao,
           status: false
         }
-      }
+      };
 
       const response = await api.put('/usuario/atualizar', dados);
       const { message } = response.data as unknown as Response;
 
       if ( message === 'Usuario atualizado com sucesso!' ) {
-        Alert.alert('Informação', 'Cupom usado com sucesso !');
-        setStatusCupom('Usado');
+        Alert.alert('Informação', `Código do seu cupom ${cupom._id} !`);
+        //setStatusCupom('Usado');
       } else{
         Alert.alert('Erro !','Falha ao usar cumpom !')
       }
+        
+      handleCupom();
 
     }
 
@@ -120,10 +122,12 @@ export const CupomAberto = () => {
 
         if ( message === 'Usuario atualizado com sucesso!' ) {
           Alert.alert('Informação', 'Cupom comprado com sucesso !');
-          setStatusCupom('Usar');
+          //setStatusCupom('Usar');
         } else{
           Alert.alert('Erro !','Falha ao comprar cumpom !')
         }
+
+        handleCupom();
 
       }
 
@@ -132,19 +136,34 @@ export const CupomAberto = () => {
 
   async function handleCupom() {
     const userStorage = await getDataStorage('Auth.user');
+    const token = await getDataStorage('Auth.token');
 
     let user;
 
-    if (userStorage != null) {
+    if (userStorage != null && token !== null) {
          user = JSON.parse(userStorage) as User;
     } else {
         Alert.alert('Usuário invalido !', 'Você precisa se logar para acessar esta página !');
         return;
-
     }
 
-    const cupomExiste = user.cupons.find(cupom => cupom.id == `${cupom_param.id}`);
-    const response = await api.get(`/cupom/listar/${cupom_param.id}`);
+    const dados = {
+      cpfCnpj: user.cpfCnpj
+    }
+
+    const responseCupons = await api.post('/usuario/listar', 
+                dados, { headers: { 'x-access-token': `${token}` } }
+    );
+    
+    const data = responseCupons.data as unknown;
+
+    const cupomExiste = data[0].cupons.find(cupom => cupom.id == `${cupom_param.id}`); //Cupons
+    const response = await api.get(`/cupom/listar/${cupom_param.id}`); //Cupom
+
+
+    // console.log('AQUI');
+    // console.log(data[0].cupons.find(cupom => cupom.id == `${cupom_param.id}`));
+    // console.log('AQUI');
 
     //console.log(response.data[0]);
 
@@ -158,7 +177,7 @@ export const CupomAberto = () => {
       setStatusCupom('Comprar');
     }
 
-
+    console.log(userStorage);
     setCupom(response.data[0]);
   }
 
@@ -201,6 +220,8 @@ export const CupomAberto = () => {
           <ContainerCupom>            
               <Icone name={'ticket-alt'} size={150} color={'#FF8955'} />
               <TextoHeader textColor={'#FF8955'}>{cupom.descricao}</TextoHeader>
+              <TextoHeader textColor={'#2C88D9'}>Valor: R$ {cupom.valor}</TextoHeader>
+              <TextoHeader textColor={'#1AAE9F'}>Valor doado: R$ {cupom.valor_doado}</TextoHeader>
               {statusCupom === 'Usar' ? 
                 (<Button
                 text="Usar cupom"
@@ -228,7 +249,10 @@ export const CupomAberto = () => {
 
           <ContainerInstituicao>
               <Icone name={'money-bill-wave-alt'} size={50} color={'#1AAE9F'} />
-              <TextoHeader textColor={'#1AAE9F'}>{cupom.instituicaoAlvoNome}</TextoHeader>
+              <TouchableOpacity
+                onPress={() => handleRedirectToPerfil(cupom.instituicaoAlvoCnpj)}>
+                <TextoHeader textColor={'#1AAE9F'}>{cupom.instituicaoAlvoNome}</TextoHeader>                                           
+              </TouchableOpacity>
           </ContainerInstituicao>
 
         </ContainerBody>
