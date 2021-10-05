@@ -48,6 +48,7 @@ export const Acoes = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
+    align-items:center;
 `;
 
 export const Scroll = styled.ScrollView`

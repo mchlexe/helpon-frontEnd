@@ -52,6 +52,10 @@ interface User {
   longitude: number; 
 }
 
+interface Response {
+  message: string;
+}
+
 export const CupomAberto = () => {
 
   const navigation = useNavigation();
@@ -62,6 +66,69 @@ export const CupomAberto = () => {
 
   const [statusCupom, setStatusCupom] = useState('');
   const [cupom, setCupom] = useState([]);
+
+  async function handleUsarCupm() {
+    
+    const userStorage = await getDataStorage('Auth.user');
+
+    if ( userStorage !== null ) {
+
+      const user = JSON.parse(userStorage) as User;
+
+      const dados = {
+        cpfCnpj: user.cpfCnpj,
+        cupons: {
+          id: cupom.id,
+          descricao: cupom.descricao,
+          status: false
+        }
+      }
+
+      const response = await api.put('/usuario/atualizar', dados);
+      const { message } = response.data as unknown as Response;
+
+      if ( message === 'Usuario atualizado com sucesso!' ) {
+        Alert.alert('Informação', 'Cupom usado com sucesso !');
+        setStatusCupom('Usado');
+      } else{
+        Alert.alert('Erro !','Falha ao usar cumpom !')
+      }
+
+    }
+
+  }
+
+  async function handleComprarCupom() {
+
+      const userStorage = await getDataStorage('Auth.user');
+
+      if (userStorage !== null) {
+
+        const user = JSON.parse(userStorage) as User;
+
+        const dados = {
+          cpfCnpj: user.cpfCnpj,
+          cupons: {
+            id: cupom.id,
+            descricao: cupom.descricao,
+            status: true
+          }
+        }
+
+        const response = await api.put('/usuario/atualizar', dados);
+        const {message} = response.data as unknown as Response;
+
+        if ( message === 'Usuario atualizado com sucesso!' ) {
+          Alert.alert('Informação', 'Cupom comprado com sucesso !');
+          setStatusCupom('Usar');
+        } else{
+          Alert.alert('Erro !','Falha ao comprar cumpom !')
+        }
+
+      }
+
+  }
+
 
   async function handleCupom() {
     const userStorage = await getDataStorage('Auth.user');
@@ -81,7 +148,7 @@ export const CupomAberto = () => {
 
     //console.log(response.data[0]);
 
-    if(cupomExiste != undefined) {
+    if(cupomExiste !== undefined) {
       if(cupomExiste.status) {
         setStatusCupom('Usar');
       } else {        
@@ -139,9 +206,7 @@ export const CupomAberto = () => {
                 text="Usar cupom"
                 textColor="white"
                 backgroundColor="#1AAE9F"
-                onPress={() => {
-                  alert('oi!');
-                }}
+                onPress={() => handleUsarCupm()}
                 />) : (null) }
 
               {statusCupom === 'Comprar' ? 
@@ -149,6 +214,7 @@ export const CupomAberto = () => {
                   text="Comprar cupom"
                   textColor="white"
                   backgroundColor="#2C88D9"
+                  onPress={() => handleComprarCupom()}
                 />) : (null) }
 
                 {statusCupom === 'Usado' ? 

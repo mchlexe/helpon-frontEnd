@@ -27,16 +27,9 @@ interface UserProps {
 }
 
 interface Cupom {
-    autor: string;
-    autorNome: string;
-    instituicaoAlvo: string;
-    instituicaoAlvoNome: string;
-    data_validade: Date;
-    descricao: string;
-    status: boolean;
-    valor_doado: number;
-    valor: number;
     id: number;
+    descricao: number;
+    status: boolean
 }
 
 interface User {
@@ -57,7 +50,7 @@ interface User {
     complemento?: string; 
     descricao?: string;
     ramo?: string; 
-    cupons: string;
+    cupons: Array<Cupom>;
     doacoes?: string; 
     latitude: number;
     longitude: number; 
@@ -75,23 +68,32 @@ export const Cupons = () => {
     async function handleCuponsAdquiridos() {
 
         const userStorage = await getDataStorage('Auth.user');
-        let user;
+        const token = await getDataStorage('Auth.token');
 
-        if (userStorage != null) {
-             user = JSON.parse(userStorage) as User;
+        if (userStorage != null && token !== null) {
+             
+            const user = JSON.parse(userStorage) as User;
+
+            const dados = {
+                cpfCnpj: user.cpfCnpj
+            }
+
+            const response = await api.post('/usuario/listar', 
+                dados, { headers: { 'x-access-token': `${token}` } }
+            );
+
+            const data = response.data as unknown as Array<User>;
+
+            if ( data.length > 0 ) {
+                setCuponsAdquiridos(data[0].cupons)
+                setTipoUsuario(data[0].tipo)
+            } 
+
         } else {
             Alert.alert('Usuário invalido !', 'Você precisa se logar para acessar esta página !');
             return;
 
         }
-
-        // const response = await api.post('/usuario/listar',
-        //     dados, { headers: { 'x-access-token': `${token}` } }
-        // );
-
-        // console.log(user.tipo);
-        setTipoUsuario(user.tipo);
-        setCuponsAdquiridos(user.cupons);
     }
 
     useEffect(() => {

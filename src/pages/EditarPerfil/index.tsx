@@ -25,6 +25,7 @@ import { Alert, View } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import api from '../../api/axios';
 
+
 interface ResponseData {
     message: string;
 }
@@ -43,6 +44,16 @@ export const EditarPerfil = () => {
     const [fotoPerfil, SetFotoPerfil] = useState('');
     const [ramoDescricao, setRamoDescricao] = useState('');
 
+
+    async function handleLogout() {
+        logout();
+
+        const user = await getDataStorage('Auth.user');
+
+        if (user === null) {
+            navigation.navigate('Start');
+        }
+    }
 
     async function handleTypeData() {
 
@@ -145,9 +156,9 @@ export const EditarPerfil = () => {
             SetFotoPerfil(user.fotoPerfil)
             setUserType(user.tipo);
 
-            if ( user.tipo === 'Comércio' ) {
+            if (user.tipo === 'Comércio') {
                 setRamoDescricao(user.ramo as string);
-            } else if ( user.tipo === 'Instituição' ) {
+            } else if (user.tipo === 'Instituição') {
                 setRamoDescricao(user.descricao as string);
             }
 
@@ -177,11 +188,22 @@ export const EditarPerfil = () => {
                     {
                         cpfCnpj !== '' && (
                             <>
-                                {
-                                    fotoPerfil !== '' && (
-                                        <FotoPerfil source={{ uri: fotoPerfil }} />
-                                    )
-                                }
+
+                                <Acoes>
+                                    {
+                                        fotoPerfil !== '' && (
+                                            <FotoPerfil source={{ uri: fotoPerfil }} />
+                                        )
+                                    }
+                                    <Button
+                                        text="Sair"
+                                        backgroundColor="red"
+                                        textColor="white"
+                                        icone="log-out"
+                                        onPress={() => handleLogout()}
+                                    />
+                                </Acoes>
+
 
                                 <Input
                                     icon="user"
@@ -249,7 +271,12 @@ export const EditarPerfil = () => {
                                         icone="check"
                                         onPress={() => handleAtualizarDados()}
                                     />
-                                </Acoes></>
+
+                                </Acoes>
+
+
+
+                            </>
                         )
                     }
                     {
