@@ -93,8 +93,6 @@ export const CadastroOne = () => {
                 const response = await api.post('/usuario/inserir', data);
                 const { message } = response.data as unknown as ResponseData;
 
-                
-
                     if (message === 'Usuário inserido com sucesso !') {
                     
                         if (['Comércio', 'Instituição'].includes(userType)) {

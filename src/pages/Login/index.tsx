@@ -5,6 +5,9 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
 
+import { validaEmail } from '../../utils/validation';
+
+
 import { 
     Container,
     Logo,
@@ -26,17 +29,35 @@ export const Login = () => {
         navigation.navigate('Home');
     }
 
+    function validaCampos(){
+        let error = false;
+        if(!validaEmail(email)){
+            // setEmail("E-mail invalido")
+            error = true
+        }
+        return !error;
+    }
+
     async function handleLogin () {
-        const logado = await logar(email, password);
 
-        if (logado) {
+            if (email.length == 0 || password.length == 0){
+                Alert.alert('Erro!','Preencha todos os campos')
+            }else{
+                if(validaCampos()){
+                    const logado = await logar(email, password);
 
-            redirectToHomePage();
+                    if (logado) {
 
-        } else {
+                        redirectToHomePage();
 
-            Alert.alert('Credenciais Invalidas !', 'Desculpe, mas não existe nenhum usuário com estas credenciais.');
-        
+                    } else {
+
+                        Alert.alert('Credenciais Invalidas !', 'Desculpe, mas não existe nenhum usuário com estas credenciais.');
+                    
+                    }
+            }else{
+                Alert.alert('Error','Informe um E-mail valido');
+            }
         }
 
 
