@@ -43,13 +43,12 @@ export const Home = () => {
         
         var result = response.data;
 
-        console.log(result);
         setCupons(result);
     }
 
     useEffect(() => {
         handleCupom();
-      }, []);
+      }, [cupons]);
 
     const navigation = useNavigation();
 

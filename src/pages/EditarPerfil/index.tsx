@@ -145,6 +145,12 @@ export const EditarPerfil = () => {
             SetFotoPerfil(user.fotoPerfil)
             setUserType(user.tipo);
 
+            if ( user.tipo === 'Comércio' ) {
+                setRamoDescricao(user.ramo as string);
+            } else if ( user.tipo === 'Instituição' ) {
+                setRamoDescricao(user.descricao as string);
+            }
+
         } else {
 
             Alert.alert('Acesso Negado !', 'Você precisa estar logado para ter acesso a esta pagina !');

@@ -91,7 +91,6 @@ export const CupomAberto = () => {
       setStatusCupom('Comprar');
     }
 
-    console.log(cupomExiste);
 
     setCupom(response.data[0]);
   }

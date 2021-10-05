@@ -57,7 +57,7 @@ interface User {
     complemento?: string; 
     descricao?: string;
     ramo?: string; 
-    cupons?: string;
+    cupons: string;
     doacoes?: string; 
     latitude: number;
     longitude: number; 
@@ -115,11 +115,12 @@ export const Cupons = () => {
                 <Logo source={logo} />
                 <ContainerPage>
 
-                    {tipoUsuario === 'Consumidor' ?
+                    {tipoUsuario === 'Consumidor' || tipoUsuario === 'Instituição' ?
                         (<TextoHeader textColor={'white'}>Cupons adquiridos</TextoHeader>)
                         :
                         (<Button 
                             text="Novo cupom"
+                            icone="plus"
                             textColor="white"
                             backgroundColor="#68BB6C"
                             onPress={() => handleRedirectToCadastroCupom() }

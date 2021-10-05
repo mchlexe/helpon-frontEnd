@@ -25,6 +25,7 @@ const RoutesPrivate: React.FC = () => {
                <Screen name="Cupons" component={Cupons}/>
                <Screen name="EditarPerfil" component={EditarPerfil}/>
                <Screen name="EditarPertilTwo" component={EditarPerfilTwo}/>
+               <Screen name="Perfil" component={Perfil}/>
             </Navigator>
 
   );

@@ -33,7 +33,6 @@ interface Response {
     bairro: string;
     cidade: string;
     complemento: string;
-    estado: string;
     numero: string;
     rua: string;
     uf: string;
@@ -58,7 +57,6 @@ export const EditarPerfilTwo = () => {
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [fotoPerfil, setFotoPerfil] = useState('');
-
     async function handleAtualizarLocalizacao () {
         
         const dados = {
@@ -66,7 +64,7 @@ export const EditarPerfilTwo = () => {
             rua, 
             numero,
             cidade,
-            estado,
+            uf: estado,
             complemento, 
             bairro,
         }
@@ -100,8 +98,8 @@ export const EditarPerfilTwo = () => {
                 dados, { headers: { 'x-access-token': `${token}` } }
             );
 
-            const [user] = response.data as unknown as Array<Response>
-
+            const [user] = response.data as unknown as Array<Response>;
+            console.log(user);
             setRua(user.rua);
             setCidade(user.cidade);
             setNumero(user.numero);
